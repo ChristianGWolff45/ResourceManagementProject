@@ -1,0 +1,53 @@
+body{
+    background-image: url("../assets/images/backgrounds/forest.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+h1{
+    width: 10em;
+    height: 2em;
+    background-color: tan;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#resources{
+    font-family: Lucida, serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    height: 20px;
+    width: 80%;
+    background-color: tan;
+    margin: 10px auto;
+    padding: 20px 0;
+}
+#Buildings{
+    width: 80%;
+    height: 40%;
+    background-color: tan;
+    margin: 10px auto;
+
+    display: flex;
+    
+}
+#progress-bar {
+    width: 300px;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+#progress-fill{
+    height: 100%;
+    width: 60%;
+    background-color: blue;
+}
+
