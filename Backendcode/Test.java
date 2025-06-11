@@ -15,7 +15,6 @@ public class Test {
             lumberyard.addWorker(pete);
             lumberyard.addWorker(chris);
             lumberyard.addWorker(bob);
-            lumberyard.addWorker(pete);
             pete.setEmployment(true);
             bob.setEmployment(true);
             chris.setEmployment(true);

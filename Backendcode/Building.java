@@ -3,6 +3,10 @@ import java.util.ArrayList;
 public class Building {
     private int workers;
     private ArrayList<Person> worklist;
+    public Building() {
+        this.workers = 0;
+        worklist = new ArrayList<>();
+    }
 
     public int getWorkers() {
         return workers;
