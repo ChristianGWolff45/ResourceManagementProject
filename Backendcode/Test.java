@@ -6,7 +6,10 @@ public class Test {
         Wood wood = new Wood();
         Stone stone = new Stone();
         Food food = new Food();
+
         wood.add(3);
+        System.out.println(wood.getAmount());
+        System.out.println(food.getAmount());
         if (wood.getAmount() == 3) {
             Lumberyard lumberyard = new Lumberyard();
             lumberyard.addWorker(pete);
