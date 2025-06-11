@@ -31,7 +31,7 @@ public class Lumberyard {
         workers--;
     }
     public boolean harvest(Wood wood) {
-        wood.make_wood(2);
+        wood.add(2);
         return true;
     }
 
