@@ -1,5 +1,8 @@
 public class Resource {
-    private int count = 0;
+    private int count;
+    public Resource() {
+        count = 0;
+    }
     public void add(int amount) {
         count += amount;
     }
