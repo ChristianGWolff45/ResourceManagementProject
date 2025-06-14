@@ -1,3 +1,6 @@
+*{
+    font-family: Lucida, serif;
+}
 body{
     background-image: url("../assets/images/backgrounds/forest.png");
     background-size: cover;
@@ -18,31 +21,42 @@ h1{
 }
 #resources{
     border-radius: 10px;
-    font-family: Lucida, serif;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
- 
-    height: 20px;
+
+    height: 50px;
     width: 60%;
     background-image: url("../assets/images/backgrounds/parchment.png");
-    margin: 10px auto;
-    padding: 20px 0;
+    margin: 0 auto;
+
+    overflow: hidden;
+ 
 }
+
 #resources * img{
     height: auto;
     min-height: 30px;
     width: 40px;
-    margin: 10px auto;
-    background-image: url("../assets/images/backgrounds/parchment.png");
+    margin: 5px 5px;
+
 }
-#resources *{
-    gap: 5px;
+#resources div{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    align-content: start;
     align-items: center;
+}
+
+.arrow-button{
+    background-color: transparent;
+    width: 40px;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 
