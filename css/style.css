@@ -66,10 +66,49 @@ h1{
     height: 45%;
     background-image: url("../assets/images/backgrounds/parchment.png");
     margin: 10px auto;
-
-    display: flex;
+    overflow-y: auto;
+}
+#Buildings{
+    display: grid;
     justify-content: left;
-    
+    align-content: start;
+}
+#Buildings .population{
+    position: fixed;
+    right: 22%;
+}
+.building, .input, .output{
+    padding: 0 20px;
+}
+.input img, .output img{
+    height: auto;
+    min-height: 30px;
+    width: 40px;
+    margin: 5px 5px;
+}
+#Buildings div{
+    display: flex;
+    align-items: center;
+}
+.building img{
+    width: 80px;
+    height: auto;
+}
+.count, .worker{
+    align-self: start;
+}
+.worker img{
+    height: auto;
+    width: 1em;
+}
+.plus-button, .minus-button{
+    background-color: transparent;
+    color: black;
+    border: none;
+    width: 15px;
+    font-size:20px;
+    font-weight: bold;
+    cursor: pointer;
 }
 #progress{
     border-radius: 10px;
@@ -112,7 +151,7 @@ h1{
     width: 0%;
     background-color: blue;
 }
-.Science-fill{
+.Population-fill{
     height: 100%;
     width: 0%;
     background-color: green;
@@ -132,6 +171,16 @@ h1{
 }
 
 #actions button{
-    background-color: tan;
+    background-image: url("../assets/images/backgrounds/parchment.png");
     min-width: 10em;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height:auto;
+  width: auto;
+  background-image: url("../assets/images/backgrounds/parchment.png");
 }
