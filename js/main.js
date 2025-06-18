@@ -1,6 +1,5 @@
 
 const arrowButton = document.getElementsByClassName('arrow-button')[0];
-console.log(arrowButton)
 const resource = document.getElementById('resources');
 const resourceArrow = function() {
     console.log(arrowButton.innerHTML);
@@ -44,3 +43,19 @@ const numFormat = num => {
         return num;
     }
 }
+
+const buildButton = document.getElementById("build-button");
+const buildSection = document.getElementById("build");
+const buildDisplay = function(){
+    buildSection.style.display = (buildSection.style.display == "none") ? 'flex' : 'none';
+}
+buildButton.onclick = buildDisplay;
+
+
+
+document.querySelectorAll('#build img').forEach(build => {
+    build.addEventListener('click', () =>{
+        const buildType = build.id;
+        console.log(buildType);
+    })
+})
