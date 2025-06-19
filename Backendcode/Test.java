@@ -1,3 +1,5 @@
+import java.time.LocalTime;
+
 public class Test {
     public static void main(String[] args) {
         Person pete = new Person("Pete", 30);
@@ -25,5 +27,8 @@ public class Test {
         else {
             System.out.println("Not enough wood to make a lumberyard");
         }
+
+        LocalTime startTime = LocalTime.now();
+        System.out.println(startTime);
     }
 }
