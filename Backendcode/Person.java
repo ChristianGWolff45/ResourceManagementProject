@@ -3,10 +3,9 @@ public class Person {
     private String name;
     private int age;
     private boolean employed;
-    public Person(String name, int age, boolean employed) {
+    public Person(String name, int age) {
         this.name = name;
         this.age = age;
-        this.employed = employed;
         population++;
     }
     public String getName() {

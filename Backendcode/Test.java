@@ -1,8 +1,8 @@
 public class Test {
     public static void main(String[] args) {
-        Person pete = new Person("Pete", 30, false);
-        Person chris = new Person("Chris", 30, false);
-        Person bob = new Person("Bob", 30, false);
+        Person pete = new Person("Pete", 30);
+        Person chris = new Person("Chris", 30);
+        Person bob = new Person("Bob", 30);
         Wood wood = new Wood();
         Stone stone = new Stone();
         Food food = new Food();

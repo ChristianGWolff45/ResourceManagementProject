@@ -19,10 +19,8 @@ public class Building {
             this.worklist = worklist;
     }
     public void addWorker(Person person) {
-        if (!worklist.contains(person) && person.isEmployed() == false) {
             worklist.add(person);
             workers++;
-        }
     }
     public void removeWorker(Person person) {
         worklist.remove(person);
