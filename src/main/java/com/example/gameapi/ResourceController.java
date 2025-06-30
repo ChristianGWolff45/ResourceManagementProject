@@ -12,52 +12,60 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ResourceController {
 
-    private final LumberMill LM;
+    private final LumberMill lumbermill;
     private final Resources resourceData;
 
     public ResourceController(LumberMill newLM, Resources newResourceData) {
-        this.LM = newLM;
+        this.lumbermill = newLM;
         this.resourceData = newResourceData;
     }
     @GetMapping("/resourceData")
     public Map<String, Integer> getResources() {
         return resourceData.getAllResources();
     }
-    @GetMapping("/LM")
+    @GetMapping("/lumbermill")
     public Map<String, Integer> getLumbermillStatsMap() {
         Map<String, Integer> response = new HashMap<>();
-        response.put("MaxWorker", LM.getMaxWorkers());
-        response.put("buildingCount", LM.getBuildingCount());
+        response.put("MaxWorker", lumbermill.getMaxWorkers());
+        response.put("buildingCount", lumbermill.getBuildingCount());
         
         return response;
     }
 
-    @GetMapping("/LM/getProduction")
+    @GetMapping("/lumbermill/getProduction")
     public int getWoodOutput(){
-        return LM.getWoodProduction();
+        return lumbermill.getWoodProduction();
     }
 
-    @PostMapping("/LM/build")
-    public int buildLumberMill(){
-        LM.addBuilding();
-        return LM.getBuildingCount();
+    @PostMapping("/lumbermill/addWorker/woodWorker")
+    public int addWoodWorker(){
+        lumbermill.addWoodWorker();
+        return lumbermill.getWoodWorkers();
     }
 
-    @PostMapping("/LM/addWoodWorker")
-    public Map<String, Integer> addWoodWorker(){
-        LM.addWoodWorker();
-        Map<String, Integer> response = new HashMap<>();
-        response.put("woodWorkerCount", LM.getWoodWorkers());
-        response.put("woodProduction", LM.getWoodProduction());
-        return response;
+    @PostMapping("/lumbermill/subtractWorker/woodWorker")
+    public int removeWoodWorker(){
+        lumbermill.removeWoodWorker();
+        return lumbermill.getWoodWorkers();
     }
 
-    @PostMapping("/LM/removeWoodWorker")
-    public Map<String, Integer> removeWoodWorker(){
-        LM.removeWoodWorker();
-        Map<String, Integer> response = new HashMap<>();
-        response.put("woodWorkerCount", LM.getWoodWorkers());
-        response.put("woodProduction", LM.getWoodProduction());
-        return response;
+    @PostMapping("/lumbermill/buildStart")
+    public int buildLumbermill(){
+        if(lumbermill.canBuildLumbermill(resourceData.getWood(), resourceData.getStone())){
+            Map<String, Integer> cost = lumbermill.getBuildingCost();
+            resourceData.changeWood(-(cost.get("wood")));
+            resourceData.changeStone(-(cost.get("stone")));
+            return lumbermill.getBuildTime();
+        }
+        return 0;
+    }
+    @PostMapping("/lumbermill/buildFinish")
+    public void addLumbermill(){
+        lumbermill.addLumbermill();
+    }
+
+    @PostMapping("/production")
+    public void produceAll(){
+        resourceData.changeWood(lumbermill.getWoodProduction());
     }
 }

@@ -2,7 +2,6 @@
 const arrowButton = document.getElementsByClassName('arrow-button')[0];
 const resource = document.getElementById('resources');
 const resourceArrow = function() {
-    console.log(arrowButton.innerHTML);
     if (arrowButton.innerHTML === '▼') {
         arrowButton.innerHTML = '▲';
         resource.style.height = 'auto';
@@ -14,25 +13,7 @@ const resourceArrow = function() {
 arrowButton.onclick = resourceArrow;
 
 
-document.querySelectorAll('.plus-button').forEach(button => {
-    button.addEventListener('click', () => {
-        const workerDiv = button.parentElement;
-        const span = workerDiv.querySelector('span');
-        let number = parseInt(span.textContent);
-        number++;
-        span.innerHTML = numFormat(number);
-    });
-});
 
-document.querySelectorAll('.minus-button').forEach(button => {
-    button.addEventListener('click', () => {
-        const workerDiv = button.parentElement;
-        const span = workerDiv.querySelector('span');
-        let number = parseInt(span.textContent);
-        number--;
-        span.innerHTML = numFormat(number);
-    });
-});
 
 const numFormat = num => {
     if(num < 0){
@@ -56,14 +37,6 @@ buildButton.onclick = buildDisplay;
 
 
 
-document.querySelectorAll('#build img').forEach(build => {
-    build.addEventListener('click', () =>{
-        const buildType = build.id;
-        console.log(buildType);
-    })
-})
-
-
 async function updateLumbermillUI() {
     const response = await fetch('/api/LM');
     const data = await response.json();
@@ -75,7 +48,6 @@ async function updateLumbermillUI() {
 async function updateResourceData() {
     const response = await fetch('/api/resourceData')
     const data = await response.json();
-    console.log(data);
     Object.entries(data).forEach(([key, value]) => {
         let el = (document.querySelector('.' + key + '-amount'))
         if(el)
@@ -83,5 +55,76 @@ async function updateResourceData() {
     });
 }
 
+async function production() {
+    const response = await fetch('/api/production', { method: 'POST' });
+    updateResourceData(); // To refresh resource display
+}
+
 // Call once immediately, then every 10 seconds
+
+document.querySelectorAll('.plus-button').forEach(button => {
+    button.addEventListener('click', async () => {
+        const workerDiv = button.parentElement;
+        const span = workerDiv.querySelector('span');
+        const buildingDiv = workerDiv.closest('.building')
+        const building = buildingDiv.parentElement.classList[0];
+        const workerType = workerDiv.closest('.worker').classList[1];
+        let number = await addWorker(building, workerType);
+        span.innerHTML = numFormat(number);
+    });
+});
+
+document.querySelectorAll('.minus-button').forEach(button => {
+    button.addEventListener('click', async () => {
+        const workerDiv = button.parentElement;
+        const span = workerDiv.querySelector('span');
+        const buildingDiv = workerDiv.closest('.building')
+        const building = buildingDiv.parentElement.classList[0];
+        const workerType = workerDiv.closest('.worker').classList[1];
+        let number = await subtractWorker(building, workerType);
+        span.innerHTML = numFormat(number);
+    });
+});
+
+
+async function addWorker(buildingType, resourceWorker){
+    const response = await fetch('/api/' + buildingType + "/addWorker/" + resourceWorker,{method: 'POST'});
+    const data = await response.json();
+    return data;
+}
+
+async function subtractWorker(buildingType, resourceWorker){
+    const response = await fetch('/api/' + buildingType + "/subtractWorker/" + resourceWorker, {method: 'POST'});
+    const data = await response.json();
+    return data;
+}
+
+document.querySelectorAll('#build img').forEach(build => {
+    build.addEventListener('click', async () =>{
+        const buildType = build.id;
+        console.log(buildType);
+        const buildTime = await newBuilding(buildType);
+        console.log(buildTime);
+        if(buildTime > 0){
+            newBuild(buildType, buildTime);
+        }
+    })
+})
+
+async function newBuilding(buildingType){
+    const response = await fetch('/api/' + buildingType + '/buildStart', {method: 'POST'})
+    const data = await response.json();
+    return data;
+}
+
+function newBuild(buildType, buildTime){
+    setTimeout(() => {
+        fetch('/api/' + buildType + '/buildFinish', {
+            method: 'POST'
+        });
+    }, buildTime);
+}
+
+setInterval(production, 10000);
+
 updateResourceData();

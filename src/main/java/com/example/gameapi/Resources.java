@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Resources {
-    private int wood = 100;
-    private int stone = 100;
+    private int wood = 30;
+    private int stone = 15;
     private int coal = 0;
     private int ore = 0;
     private int fish = 0;
@@ -39,5 +39,40 @@ public class Resources {
         map.put("flour", flour);
         map.put("bread", bread);
         return map;
+    }
+    public int getWood() {
+        return wood;
+    }
+
+    public int getStone() {
+        return stone;
+    }
+
+    public int getCoal() {
+        return coal;
+    }
+
+    public int getOre() {
+        return ore;
+    }
+
+    public int getFish() {
+        return fish;
+    }
+
+    public int getMetal() {
+        return metal;
+    }
+
+    public int getWheat() {
+        return wheat;
+    }
+
+    public int getFlour() {
+        return flour;
+    }
+
+    public int getBread() {
+        return bread;
     }
 }

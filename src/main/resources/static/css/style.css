@@ -101,15 +101,22 @@ h1{
     height: auto;
     width: 1em;
 }
+.worker span{
+    font-size: 25px;
+}
 .plus-button, .minus-button{
     background-color: transparent;
     color: black;
     border: none;
-    width: 15px;
     font-size:20px;
-    font-weight: bold;
     cursor: pointer;
 }
+.plus-button:hover, .minus-button:hover{
+    border-radius: 4px;  
+    font-weight: bold;
+    font-size: 25px;
+}
+
 #progress{
     border-radius: 10px;
     background-image: url("../assets/images/backgrounds/parchment.png");
