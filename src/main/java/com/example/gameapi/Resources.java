@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Resources {
-    private int wood = 30;
-    private int stone = 15;
+    private int wood = 60;
+    private int stone = 30;
     private int coal = 0;
     private int ore = 0;
     private int fish = 0;

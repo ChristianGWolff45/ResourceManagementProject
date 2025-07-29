@@ -67,10 +67,10 @@ document.querySelectorAll('.plus-button').forEach(button => {
         const workerDiv = button.parentElement;
         const span = workerDiv.querySelector('span');
         const buildingDiv = workerDiv.closest('.building')
-        const building = buildingDiv.parentElement.classList[0];
+        const building = buildingDiv.parentElement.id;
         const workerType = workerDiv.closest('.worker').classList[1];
         let number = await addWorker(building, workerType);
-        span.innerHTML = numFormat(number);
+        // span.innerHTML = numFormat(number);
     });
 });
 
@@ -79,7 +79,7 @@ document.querySelectorAll('.minus-button').forEach(button => {
         const workerDiv = button.parentElement;
         const span = workerDiv.querySelector('span');
         const buildingDiv = workerDiv.closest('.building')
-        const building = buildingDiv.parentElement.classList[0];
+        const building = buildingDiv.parentElement.id;
         const workerType = workerDiv.closest('.worker').classList[1];
         let number = await subtractWorker(building, workerType);
         span.innerHTML = numFormat(number);
@@ -88,9 +88,21 @@ document.querySelectorAll('.minus-button').forEach(button => {
 
 
 async function addWorker(buildingType, resourceWorker){
-    const response = await fetch('/api/' + buildingType + "/addWorker/" + resourceWorker,{method: 'POST'});
+    const response = await fetch('/api/addWorker', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'buildingName': buildingType,
+            'workerType': resourceWorker
+        })
+
+    });
     const data = await response.json();
+    console.log(data);
     return data;
+    
 }
 
 async function subtractWorker(buildingType, resourceWorker){
@@ -118,13 +130,65 @@ async function newBuilding(buildingType){
 }
 
 function newBuild(buildType, buildTime){
-    setTimeout(() => {
-        fetch('/api/' + buildType + '/buildFinish', {
+    setTimeout(async() => {
+        let response = await fetch('/api/' + buildType + '/buildFinish', {
             method: 'POST'
         });
+        response.then(updateBuildingCount(buildType));
     }, buildTime);
+
+    let construction = document.getElementsByClassName('underConstruction')[0];
+
+    let divNewConstruction = document.createElement('div');
+    divNewConstruction.className = 'newConstruction';
+
+    let img = document.createElement('img');
+    img.src = `assets/images/buildings/${buildType}.png`;
+
+    let divProgressBar = document.createElement('div');
+    divProgressBar.className = 'progress-bar';
+
+    let divBuildingCompletion = document.createElement('div');
+    divBuildingCompletion.className = 'buildingCompletion';
+
+    divProgressBar.appendChild(divBuildingCompletion);
+    divNewConstruction.appendChild(img);
+    divNewConstruction.appendChild(divProgressBar);
+    construction.appendChild(divNewConstruction);
+    let workTime = 0;
+    let interval = setInterval(() => {
+        workTime += 100;
+        let percent = Math.min((workTime / buildTime) * 100, 100);
+        divBuildingCompletion.style.width = percent + "%";
+
+        if (workTime >= buildTime) {
+            clearInterval(interval);
+            construction.removeChild(divNewConstruction);
+            
+        }
+    }, 100);
 }
 
-setInterval(production, 10000);
 
-updateResourceData();
+let updateBuildingCount = async function(buildType){
+    let response = await fetch('api/buildingCount')
+    let data = await response.json();
+    console.log(data);
+    let building = document.getElementById(buildType);
+    console.log(building.children[0].children[0])
+    building.children[0].children[0].innerText = numFormat(data);
+}
+
+let updateBuildingStats = async function(){
+    let response = await fetch('api/buildingStats');
+    let data = await response.json();
+    console.log(data);
+}
+
+setInterval(updateBuildingStats, 10000)
+
+// setInterval(production, 10000);
+
+// updateResourceData();
+// updateWorkerCount();
+// updateBuildingCount();

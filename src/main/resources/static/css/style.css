@@ -67,16 +67,20 @@ h1{
     background-image: url("../assets/images/backgrounds/parchment.png");
     margin: 10px auto;
     overflow-y: auto;
+    
 }
-#Buildings{
-    display: grid;
-    justify-content: left;
-    align-content: start;
-}
+
 #Buildings .population{
     position: fixed;
     right: 22%;
 }
+
+#completed{
+    display: grid;
+    justify-content: left;
+    align-content: start;
+}
+
 .building, .input, .output{
     padding: 0 20px;
 }
@@ -86,14 +90,15 @@ h1{
     width: 40px;
     margin: 5px 5px;
 }
-#Buildings div{
+#completed section, #completed section div{
     display: flex;
     align-items: center;
 }
-.building img{
+.building img, .underConstruction img{
     width: 80px;
     height: auto;
 }
+
 .count, .worker{
     align-self: start;
 }
@@ -116,6 +121,24 @@ h1{
     font-weight: bold;
     font-size: 25px;
 }
+
+.underConstruction div {
+    display: flex;
+    align-items: center;
+
+}
+
+.underConstruction {
+    width: 60%;
+}
+
+
+.buildingCompletion{
+    height: 100%;
+    width: 100%;
+    background-color: #8b5e3c;
+}
+
 
 #progress{
     border-radius: 10px;
@@ -219,3 +242,4 @@ h1{
   border-radius: 100vw;
   border: 2px solid #e0d6c3;
 }
+
