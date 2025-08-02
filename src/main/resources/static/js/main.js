@@ -70,7 +70,7 @@ document.querySelectorAll('.plus-button').forEach(button => {
         const building = buildingDiv.parentElement.id;
         const workerType = workerDiv.closest('.worker').classList[1];
         let number = await addWorker(building, workerType);
-        // span.innerHTML = numFormat(number);
+        span.innerHTML = numFormat(number);
     });
 });
 
@@ -100,15 +100,24 @@ async function addWorker(buildingType, resourceWorker){
 
     });
     const data = await response.json();
-    console.log(data);
-    return data;
+    return Object.values(data)[0];
     
 }
 
 async function subtractWorker(buildingType, resourceWorker){
-    const response = await fetch('/api/' + buildingType + "/subtractWorker/" + resourceWorker, {method: 'POST'});
+    const response = await fetch('/api/subtractWorker', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'buildingName': buildingType,
+            'workerType': resourceWorker
+        })
+        });
     const data = await response.json();
-    return data;
+    
+    return Object.values(data)[0];
 }
 
 document.querySelectorAll('#build img').forEach(build => {

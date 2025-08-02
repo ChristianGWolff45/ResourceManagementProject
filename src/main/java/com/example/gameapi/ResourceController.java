@@ -51,7 +51,7 @@ public class ResourceController {
     // }
 
     @PostMapping("/addWorker")
-    public Map<String, Integer> addWoodWorker(@RequestBody Map<String, String> request){
+    public Map<String, Integer> addWorker(@RequestBody Map<String, String> request){
         for(Building buildings : buildings){
             
             if(buildings.getBuildingName().equals(request.get("buildingName"))){
@@ -63,11 +63,19 @@ public class ResourceController {
         
     }
 
-    // @PostMapping("/lumbermill/subtractWorker/woodWorker")
-    // public int removeWoodWorker(){
-    //     lumbermill.removeWoodWorker();
-    //     return lumbermill.getWoodWorkers();
-    // }
+    @PostMapping("/subtractWorker")
+    public Map<String, Integer> subtractWorker(@RequestBody Map<String, String> request){
+        System.out.println(buildings[0].getWorkerCount());
+        for(Building buildings : buildings){
+            
+            if(buildings.getBuildingName().equals(request.get("buildingName"))){
+                buildings.subtractWorker(request.get("workerType"));
+                return buildings.getWorkerCount();
+            }
+        }
+        throw new IllegalArgumentException("Building not found " + request.get("buildingName"));
+        
+    }
 
     // @PostMapping("/lumbermill/buildStart")
     // public int buildLumbermill(){

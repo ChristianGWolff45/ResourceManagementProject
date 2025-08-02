@@ -59,6 +59,14 @@ abstract class Building {
             }
         }
     }
+    public void subtractWorker(String workerType){
+        if(workerCount.containsKey(workerType)){
+            if(workerCount.get(workerType) - 1 >= 0){
+                
+                workerCount.put(workerType, workerCount.get(workerType) - 1);
+            }
+        }
+    }
     public Map<String, Integer> getBuildingCost(){
         return buildingCost;
     }
